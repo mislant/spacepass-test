@@ -1,0 +1,15 @@
+{
+  "name": "mislant/spacepass-test",
+  "description": "This is test task for spacepass company",
+  "license": "proprietary",
+  "require": {
+    "php": "8.*",
+    "symfony/finder": "^5.3",
+    "psr/log": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Spacepass\\": "src"
+    }
+  }
+}
