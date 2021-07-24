@@ -14,5 +14,13 @@ namespace Spacepass;
  */
 interface Input
 {
+    /**
+     * @throws RuntimeException
+     */
     public function getParsingDirectory(): string;
+
+    /**
+     * @throws RuntimeException
+     */
+    public function getParsingFilesExceptions(): array;
 }

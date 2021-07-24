@@ -34,7 +34,7 @@ final class TestTask
     public function run(): int
     {
         try {
-            return $this->process();
+             return $this->process();
         } catch (RuntimeException $e) {
             return $this->handleError($e);
         }
@@ -56,8 +56,9 @@ final class TestTask
     private function getFilesFromInput(): FileCollection
     {
         $searchingDirectory = $this->input->getParsingDirectory();
-        $this->logger->info("Begin file parsing from $searchingDirectory");
-        $fileCollection = $this->parser->getFiles($searchingDirectory);
+        $searchingExceptions = $this->input->getParsingFilesExceptions();
+        $this->logger->info("Begin file parsing from $searchingDirectory with " . json_encode($searchingExceptions) . " extensions");
+        $fileCollection = $this->parser->getFiles($searchingDirectory, $searchingExceptions);
         $this->logger->info("Parsing was successful");
         return $fileCollection;
     }

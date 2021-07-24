@@ -81,7 +81,33 @@ final class WorkerImplementation implements Worker
 
     private function createNew(string $content): void
     {
-        file_put_contents($this->getCopyFullPath(), $content);
+        $this->deleteCopyIfExists();
+        $this->new($content);
+    }
+
+    private function deleteCopyIfExists()
+    {
+        if (file_exists($this->getCopyFullPath()))
+            unlink($this->getCopyFullPath());
+    }
+
+    private function new(string $content)
+    {
+        $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Kirill');
+        $pdf->SetTitle('Pdf copy');
+        $pdf->SetSubject('Pdf copy');
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->SetFont('times', 'BI', 20);
+        $pdf->AddPage();
+        $pdf->Write(0, $content, '', 0, 'C', true, 0, false, false, 0);
+        $pdf->Output($this->getCopyFullPath(), 'F');
     }
 
     private function getCopyFullPath(): string

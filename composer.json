@@ -5,7 +5,11 @@
   "require": {
     "php": "8.*",
     "symfony/finder": "^5.3",
-    "psr/log": "^3.0"
+    "psr/log": "1.*",
+    "symfony/yaml": "^5.3",
+    "symfony/console": "^5.3",
+    "tecnickcom/tcpdf": "^6.4",
+    "php-di/php-di": "^6.3"
   },
   "autoload": {
     "psr-4": {
